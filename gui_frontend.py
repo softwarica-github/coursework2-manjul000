@@ -16,17 +16,17 @@ class WebsiteFuzzerGUI:
 
         self.payload_label = tk.Label(root, text="Payload (comma-separated):")
         self.payload_label.grid(row=1, column=0)
-        self.payload_entry = tk.Entry(root, width=50)
+        self.payload_entry = tk.Entry(root, width=50)  
         self.payload_entry.grid(row=1, column=1, padx=10, pady=10)
 
         self.fuzz_position_label = tk.Label(root, text="Fuzz Position (FUZZ) :")
         self.fuzz_position_label.grid(row=2, column=0)
-        self.fuzz_position_entry = tk.Entry(root, width=50)
+        self.fuzz_position_entry = tk.Entry(root, width=50) 
         self.fuzz_position_entry.grid(row=2, column=1, padx=10, pady=10)
 
         self.num_threads_label = tk.Label(root, text="Number of Threads:")
         self.num_threads_label.grid(row=3, column=0)
-        self.num_threads_entry = tk.Entry(root, width=50)
+        self.num_threads_entry = tk.Entry(root, width=50) 
         self.num_threads_entry.grid(row=3, column=1, padx=10, pady=10)
 
         # Entry widgets for filtering criteria
@@ -86,6 +86,17 @@ class WebsiteFuzzerGUI:
         self.output_text.insert(tk.END, f"Domain: {url} | Fuzz Position: {fuzz_position}\n")
 
         fuzzer = WebsiteFuzzer(url, payload, fuzz_position)
+
+        # Handle empty or non-numeric input for num_threads
+        if num_threads:
+            try:
+                num_threads = int(num_threads)
+            except ValueError:
+                messagebox.showerror("Error", "Number of Threads must be a valid integer.")
+                return
+        else:
+            messagebox.showerror("Error", "Please provide a value for Number of Threads.")
+            return
         
         # Ensure payload is a list
         if payload=="":
