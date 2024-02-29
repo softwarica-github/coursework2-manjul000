@@ -111,8 +111,6 @@ class WebsiteFuzzerGUI:
         
         results = fuzzer.fuzz_multiple(directories, num_threads)
 
-        results = fuzzer.fuzz_multiple(directories, num_threads)
-
         for result in results:
             parts = result.split()  # Split the result string by whitespace
 
